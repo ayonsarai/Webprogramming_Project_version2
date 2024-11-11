@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Currency Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        header {
+            height: 48px;
+            background-color: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        header nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .converter {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .converter input, .converter select, .converter button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .converter button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .converter button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        .loading {
+            display: none;
+            margin-top: 10px;
+            font-size: 1em;
+            color: #333;
+        }
+        .converter.expanded {
+            transition: height 0.5s ease;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    <div class="converter" id="converter">
+        <h2>Currency Converter</h2>
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" placeholder="Enter the dollar amount you wish to convert" required>
+        <label for="fromCurrency">From:</label>
+        <select id="fromCurrency">
+            <option value="USD">US Dollar (USD)</option>
+            <option value="EUR">Euro (EUR)</option>
+            <option value="GBP">British Pound (GBP)</option>
+            <option value="JPY">Japanese Yen (JPY)</option>
+            <option value="AUD">Australian Dollar (AUD)</option>
+            <option value="CAD">Canadian Dollar (CAD)</option>
+            <option value="CHF">Swiss Franc (CHF)</option>
+            <option value="CNY">Chinese Yuan (CNY)</option>
+            <option value="SEK">Swedish Krona (SEK)</option>
+            <option value="NZD">New Zealand Dollar (NZD)</option>
+        </select>
+        <label for="toCurrency">To:</label>
+        <select id="toCurrency">
+            <option value="USD">US Dollar (USD)</option>
+            <option value="EUR">Euro (EUR)</option>
+            <option value="GBP">British Pound (GBP)</option>
+            <option value="JPY">Japanese Yen (JPY)</option>
+            <option value="AUD">Australian Dollar (AUD)</option>
+            <option value="CAD">Canadian Dollar (CAD)</option>
+            <option value="CHF">Swiss Franc (CHF)</option>
+            <option value="CNY">Chinese Yuan (CNY)</option>
+            <option value="SEK">Swedish Krona (SEK)</option>
+            <option value="NZD">New Zealand Dollar (NZD)</option>
+        </select>
+        <button onclick="convertCurrency()">Convert</button>
+        <div class="loading" id="loading">Converting...</div>
+        <div class="result" id="result"></div>
+    </div>
+    <script src="currencyConverter.js"></script>
+    <script>
+        const currencySymbols = {
+            USD: '$',
+            EUR: '€',
+            GBP: '£',
+            JPY: '¥',
+            AUD: 'A$',
+            CAD: 'C$',
+            CHF: 'CHF',
+            CNY: '¥',
+            SEK: 'kr',
+            NZD: 'NZ$'
+        };
+
+        function convertCurrency() {
+            const amount = document.getElementById('amount').value;
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+            const loading = document.getElementById('loading');
+            const resultDiv = document.getElementById('result');
+            const converter = document.getElementById('converter');
+            
+            loading.style.display = 'block';
+            resultDiv.innerText = '';
+            converter.classList.remove('expanded');
+
+            // Simulate a delay for conversion process
+            setTimeout(() => {
+                const conversionRate = 1.2; // Assume conversionRate is calculated
+                const result = amount * conversionRate;
+                const fromSymbol = currencySymbols[fromCurrency];
+                const toSymbol = currencySymbols[toCurrency];
+                resultDiv.innerText = `${fromSymbol}${parseFloat(amount).toFixed(2)} ${fromCurrency} is approximately ${toSymbol}${result.toFixed(2)} ${toCurrency}`;
+                loading.style.display = 'none';
+                converter.classList.add('expanded');
+            }, 1000);
+        }
+    </script>
+</body>
+<div class="conversion-tables" id="conversionTables" style="display: none; display: flex; justify-content: space-around; margin-top: 20px;"></div>
+    <table style="border-collapse: collapse; width: 45%; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <caption style="font-weight: bold; margin-bottom: 10px;">Common Increments (From Currency)</caption>
+        <thead>
+            <tr>
+                <th style="border: 1px solid #ccc; padding: 8px;">Amount</th>
+                <th style="border: 1px solid #ccc; padding: 8px;">Converted</th>
+            </tr>
+        </thead>
+        <tbody id="fromCurrencyTableBody">
+            <!-- Rows will be added dynamically -->
+        </tbody>
+    </table>
+    <table style="border-collapse: collapse; width: 45%; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <caption style="font-weight: bold; margin-bottom: 10px;">Common Increments (To Currency)</caption>
+        <thead>
+            <tr>
+                <th style="border: 1px solid #ccc; padding: 8px;">Amount</th>
+                <th style="border: 1px solid #ccc; padding: 8px;">Converted</th>
+            </tr>
+        </thead>
+        <tbody id="toCurrencyTableBody">
+            <!-- Rows will be added dynamically -->
+        </tbody>
+    </table>
+</div>
+<script>
+    function convertCurrency() {
+        const amount = document.getElementById('amount').value;
+        const fromCurrency = document.getElementById('fromCurrency').value;
+        const toCurrency = document.getElementById('toCurrency').value;
+        const loading = document.getElementById('loading');
+        const resultDiv = document.getElementById('result');
+        const converter = document.getElementById('converter');
+        const conversionTables = document.getElementById('conversionTables');
+        const fromCurrencyTableBody = document.getElementById('fromCurrencyTableBody');
+        const toCurrencyTableBody = document.getElementById('toCurrencyTableBody');
+        
+        loading.style.display = 'block';
+        resultDiv.innerText = '';
+        converter.classList.remove('expanded');
+        conversionTables.style.display = 'none';
+        fromCurrencyTableBody.innerHTML = '';
+        toCurrencyTableBody.innerHTML = '';
+
+        // Simulate a delay for conversion process
+        setTimeout(() => {
+            const conversionRate = 1.2; // Assume conversionRate is calculated
+            const result = amount * conversionRate;
+            const fromSymbol = currencySymbols[fromCurrency];
+            const toSymbol = currencySymbols[toCurrency];
+            resultDiv.innerText = `${fromSymbol}${parseFloat(amount).toFixed(2)} ${fromCurrency} is approximately ${toSymbol}${result.toFixed(2)} ${toCurrency}`;
+            loading.style.display = 'none';
+            converter.classList.add('expanded');
+            conversionTables.style.display = 'flex';
+
+            const increments = [1, 5, 10, 20, 50, 100];
+            increments.forEach(increment => {
+                const fromRow = document.createElement('tr');
+                const toRow = document.createElement('tr');
+
+                const fromAmount = increment;
+                const toAmount = increment * conversionRate;
+
+                fromRow.innerHTML = `<td style="border: 1px solid #ccc; padding: 8px;">${fromSymbol}${fromAmount.toFixed(2)}</td><td style="border: 1px solid #ccc; padding: 8px;">${toSymbol}${(fromAmount * conversionRate).toFixed(2)}</td>`;
+                toRow.innerHTML = `<td style="border: 1px solid #ccc; padding: 8px;">${toSymbol}${toAmount.toFixed(2)}</td><td style="border: 1px solid #ccc; padding: 8px;">${fromSymbol}${(toAmount / conversionRate).toFixed(2)}</td>`;
+
+                fromCurrencyTableBody.appendChild(fromRow);
+                toCurrencyTableBody.appendChild(toRow);
+            });
+        }, 1000);
+    }
+</script>
+

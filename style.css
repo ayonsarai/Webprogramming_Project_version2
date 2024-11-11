@@ -1,0 +1,101 @@
+/* Cowboy-themed styles for Clint Eastwood Showdown */
+
+/* Background and Font Styles */
+body {
+    background-color: #D2B48C; /* Tan, like desert sand */
+    font-family: 'Courier New', Courier, monospace; /* Western-style font */
+    color: #4B3621; /* Dark brown text, resembling leather */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Header styling */
+h1 {
+    font-size: 3em;
+    color: #d42c2c; /* Dark red for intensity */
+    text-shadow: 2px 2px 4px #0f0f0f; /* Shadow effect */
+    margin-top: 150px;
+    margin-bottom:0px;
+    letter-spacing: 1px;
+}
+h2 {
+    font-size: 2em;
+    color: #faf6f6; /* Dark red for intensity */
+    text-shadow: 4px 4px 4px #050505d8; /* Shadow effect */
+    margin-bottom: 0px;
+    letter-spacing: 2px;
+}
+
+h3 {
+    font-size: 1.5em;
+    color: #f0eeee; /* Saddle brown for headers */
+    font-family: 'Times New Roman', Times, serif; /* Serif font for elegance */
+    background-color: #1b15139a; /* Light orange for contrast */
+    padding: 10px;
+
+}
+
+/* Instructions text */
+p {
+    font-size: 4cap;
+    color: #654321; 
+    font-weight: bold;
+}
+
+/* Game Area Styling */
+.game-area {
+    margin-top: 30px;
+}
+
+/* Button Styles for Rock, Paper, Scissors */
+.choice-button {
+    background-color: #a54504; buttons */
+    border: none;
+    padding: 15px 30px;
+    margin: 10px;
+    cursor: pointer;
+    color: #fff; /* White text */
+    font-size: 1.5em;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.choice-button:hover {
+    transform: scale(1.1); /* Slight zoom effect */
+    box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+/* Selected button style */
+.choice-button.selected {
+    background-color: #f8f7f5; /* Gold color for selected state */
+    color: #000; /* Black text for contrast */
+}
+
+/* Result Message Styling */
+#result {
+    margin-top: 7px;
+    font-size:.5em;
+    color: #FF4500; message */
+    font-weight: bold;
+}
+
+/* Additional Cowboy-Themed Details */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('cowboy.jpg'); /* Add a cowboy scene as background */
+    background-size: cover;
+    background-position: bottom;
+    opacity: 0.2; /* Light overlay */
+    z-index: -1; /* Ensure it stays in the background */
+}
+

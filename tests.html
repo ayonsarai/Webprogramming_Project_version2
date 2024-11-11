@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #FFB3BA, #FFDFBA, #FFFFBA, #BAFFC9, #BAE1FF);
+            color: white;
+        }
+        .calculator {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .display {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: white;
+            color: black;
+            border-radius: 5px;
+            font-size: 1.5em;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .buttons button {
+            padding: 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .buttons button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1 id="header" style="color: white;">Welcome to the "Money Please" Calculator for Kids!</h1>
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button onclick="addInput(7)">7</button>
+            <button onclick="addInput(8)">8</button>
+            <button onclick="addInput(9)">9</button>
+            <button onclick="addInput('/')">/</button>
+            <button onclick="addInput(4)">4</button>
+            <button onclick="addInput(5)">5</button>
+            <button onclick="addInput(6)">6</button>
+            <button onclick="addInput('*')">*</button>
+            <button onclick="addInput(1)">1</button>
+            <button onclick="addInput(2)">2</button>
+            <button onclick="addInput(3)">3</button>
+            <button onclick="addInput(0)">0</button>
+            <button onclick="clearInput()">C</button>
+            <button onclick="addInput('-')">-</button>
+            <button onclick="addInput('.')">.</button>
+            <button onclick="addInput('=')">=</button>
+            <button onclick="addInput('+')">+</button>
+        </div>
+    </div>
+
+    <script src="Calc_script.js"></script>
+    <script>
+        const display = document.getElementById('display');
+        const calculator = new SimpleCalculator();
+
+        function addInput(value) {
+            const result = calculator.addInput(value);
+            if (value === "=") {
+                display.textContent = result;
+            } else {
+                display.textContent = calculator.inputs.join('');
+            }
+        }
+
+        function clearInput() {
+            calculator.inputs = [];
+            display.textContent = '0';
+        }
+
+        // Apply rainbow colors to the header
+        const header = document.getElementById('header');
+        const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+        header.innerHTML = header.textContent.split('').map((char, index) => {
+            if (char !== ' ') {
+                return `<span style="color: ${colors[index % colors.length]};">${char}</span>`;
+            } else {
+                return char;
+            }
+        }).join('');
+    </script>
+</body>
+</html>
